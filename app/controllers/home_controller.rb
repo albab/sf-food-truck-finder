@@ -44,7 +44,8 @@ class HomeController < ApplicationController
   	else 
   		@nearest_locations = @category_locations.within(10, :origin => [37.789164, -122.402979])
   	end
-  	binding.pry
+  	puts @nearest_locations.first.name
+  	
   end
 
   def user_location
