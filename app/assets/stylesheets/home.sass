@@ -1,0 +1,67 @@
+$orange: #ff5f2e
+$yellow: #fcbe32
+$dark_blue: #004e66
+$light_blue: #e1eef6
+
+body 
+	background-color: $dark_blue
+	margin: 0
+
+
+#header_text
+	font-family: 'Pacifico', cursive
+	font-size: 38px
+	float: left
+	padding: 10px 20px
+	color: $yellow
+	margin-bottom: 10px
+	width: 100%
+
+
+#food_options
+	width: 30%
+	height: 520px
+	background-color: $light_blue
+	float: left 
+	overflow: scroll
+	.each_food_option
+		background-color: #f2f2f2
+		padding: 15px
+		font-size: 19px
+		border-bottom: 1px solid #D9D9D9
+		color: #333
+		font-family: 'Source Sans Pro', sans-serif
+		cursor: pointer
+		transition: all 0.25s ease-in-out
+		&:hover
+			background-color: #D0D0D0
+
+	.each_food_category
+		margin: 0px auto
+		padding: 15px
+		color: #333
+		font-size: 30px
+		font-family: 'Source Sans Pro', sans-serif	
+		background-color: #f2f2f2
+		border-bottom: 1px solid #D9D9D9
+		transition: all 0.25s ease-in-out
+		cursor: pointer
+		&:hover
+			background-color: #D0D0D0
+		img 	
+			vertical-align: middle
+		.category_text
+			margin-right: 20px
+		.category_details
+			margin: 0 auto
+			width: 77%
+		a 
+			text-decoration: none
+		a:visited, a:active, a:link
+			color: #333
+
+#map 
+	margin: 0px auto
+	width: 70%
+	height: 520px
+	float: right

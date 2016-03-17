@@ -1,0 +1,48 @@
+#header_text food truck finder
+
+#main
+  #food_options 
+    = render 'food_categories'
+  #map
+
+:javascript
+  function init_map() {
+    var map_container = document.getElementById('map');
+    var map = new google.maps.Map(map_container, {
+      center: { lat: 37.789164, lng: -122.402979 },
+      zoom: 12
+    });
+  }
+
+  window.onload = function() {
+    find_location();
+  };
+  var find_location = function() {
+    var has_loaded = false;
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        if (has_loaded == false) {
+          $.ajax({
+            type: 'GET',
+            url: '/user_location',
+            dataType: 'JSONP',
+            data: { coordinates: {lat: latitude, lon: longitude}}
+          });
+          has_loaded = true;
+        }
+      }, function (error) {
+        if (error.code == error.PERMISSION_DENIED) {
+          if (locations) {
+            var location_error = document.createElement('div');
+            location_error.innerHTML = "Geo location services appear to be disabled on your device.";
+            location_error.id = "location_permissions_error";
+            locations.appendChild(location_error);
+          }
+        }
+        });
+      }
+    };
+
+%script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?callback=init_map&key=AIzaSyApyyki_-SoM7pPt0ac-RaE-bv98RrpYkY"}
