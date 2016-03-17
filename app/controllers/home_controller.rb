@@ -23,8 +23,8 @@ class HomeController < ApplicationController
 		  		truck.schedule = food_truck['schedule']
 		  		# Could geocode this later but why not
 		  		coordinates = MultiGeocoder.geocode(truck.address + ', San Francisco, CA')
-		  		truck.lat = coordinates.lat
-		  		truck.lng = coordinates.lng
+		  		truck.lat = coordinates.lat.to_f
+		  		truck.lng = coordinates.lng.to_f
 		  		truck.save!
 		  	else 
 		  		next
@@ -45,7 +45,7 @@ class HomeController < ApplicationController
   		@nearest_locations = @category_locations.within(10, :origin => [37.789164, -122.402979])
   	end
   	puts @nearest_locations.first.name
-  	
+
   end
 
   def user_location
