@@ -40,12 +40,15 @@ class HomeController < ApplicationController
   	@category_locations = Truck.where("food_items like ?", "%#{category}%")
   	user_location = [session[:lat], session[:lng]]
   	if user_location.present?
-  		@nearest_locations = @category_locations.within(5, :origin => user_location)
+  		@nearest_locations = @category_locations.near(user_location, 20).as_json
+  		if @nearest_locations.empty?
+  			@nearest_locations = @category_locations.near('San Francisco, CA', 20).as_json
+  			@center_sf = true
+  		end
   	else 
-  		@nearest_locations = @category_locations.within(10, :origin => [37.789164, -122.402979])
+  		@nearest_locations = @category_locations.near('San Francisco, CA', 20).as_json
   	end
-  	puts @nearest_locations.first.name
-
+    render json: @nearest_locations
   end
 
   def user_location

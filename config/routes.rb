@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   get '/populate_trucks' => 'home#populate_food_trucks'
   get '/show_category_locations/:category' => 'home#show_category_locations'
-  get '/search_location_by_zip/:zipcode' => 'home#search_by_zip'
   get '/user_location' => 'home#user_location'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
