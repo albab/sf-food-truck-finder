@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
 	include Geokit::Geocoders
+  protect_from_forgery except: :user_location
 
   def index
   	@food_trucks = Truck.all
@@ -9,7 +10,7 @@ class HomeController < ApplicationController
   	# Populate db with trucks if none already exist
   	if Truck.count == 0
 	  	results = HTTParty.get 'http://data.sfgov.org/resource/rqzj-sfat.json'
-	  	# O(n) blahh
+	  	# lazy loading blah
 	  	results.each do |food_truck|
 	  		# Only want trucks that are active and actually a truck (not a cart)
 	  		if food_truck['status'] == "APPROVED" && food_truck['facilitytype'] == "Truck"

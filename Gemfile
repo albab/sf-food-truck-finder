@@ -38,21 +38,22 @@ gem 'geocoder'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+group :development do
+  gem 'web-console', '~> 2.0'
+end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
+  gem 'factory_girl_rails'
+  gem 'selenium-webdriver'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-	
 	gem 'sqlite3'
+  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+  gem 'rspec-rails'
+  gem 'launchy'
+  gem 'database_cleaner'
 end
-
-
 group :production do
 	gem 'rails_12factor'
 	gem 'pg'

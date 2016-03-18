@@ -1,6 +1,8 @@
+// Create a new map centered on the user's location
 var map_container = document.getElementById('map');
 var map = new google.maps.Map(map_container, {
   center: { lat: Number("<%= @lat %>"), lng: Number("<%= @lng %>") },
-  zoom: 10
+  zoom: 10,
+  optimized: false
 });
 

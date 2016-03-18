@@ -1,4 +1,7 @@
-#header_text food truck finder
+#header_container
+  #header_text food truck finder
+  #locate_me
+    .fa.fa-map-marker.fa-2x
 
 #main
   #food_options 
@@ -6,43 +9,61 @@
   #map
 
 :javascript
+  //Initializing the Google Map
   function init_map() {
     var map_container = document.getElementById('map');
     var map = new google.maps.Map(map_container, {
+      // Center on SF
       center: { lat: 37.789164, lng: -122.402979 },
-      zoom: 12
+      zoom: 12,
+      optimized: false
     });
   }
 
-  window.onload = function() {
+  //Locate user's location and center map on pin icon click
+  $('#locate_me').on('click', function() {
     find_location();
-  };
-  var find_location = function() {
-    var has_loaded = false;
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        if (has_loaded == false) {
-          $.ajax({
-            type: 'GET',
-            url: '/user_location',
-            dataType: 'JSONP',
-            data: { coordinates: {lat: latitude, lon: longitude}}
-          });
-          has_loaded = true;
-        }
-      }, function (error) {
-        if (error.code == error.PERMISSION_DENIED) {
-          if (locations) {
-            var location_error = document.createElement('div');
-            location_error.innerHTML = "Geo location services appear to be disabled on your device.";
-            location_error.id = "location_permissions_error";
-            locations.appendChild(location_error);
-          }
-        }
-        });
-      }
-    };
+  });
+  // Where to store category_results from json
+  var category_results = [];
+  // If a category is chosen, find a list of food trucks with that category
+  $('.each_food_category').on('click', function() {
+    var category = $(this).find('.category_details').attr('id');
+    $.ajax({
+      type: "GET",
+      url: "/show_category_locations/" + category,
+      dataType: "json",
+      success: function(data){
+        category_results = data;
+      }        
+    });
+    //Redraw the map with category locations
+    var map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 37.789164, lng: -122.402979 },
+      zoom: 13,
+      optimized: false
+    });
+
+    $.each(category_results, function() {
+      //Create markers for each truck with chosen category
+      var lat_lng = new google.maps.LatLng(this.lat, this.lng);
+      var marker = new google.maps.Marker({
+        position: lat_lng,
+        map: map
+      });
+
+      //Popup info for each truck on map
+      marker.info = new google.maps.InfoWindow({
+        content: '<div class="info_window_title">'+ this.name +'</div><div class="info_window_address">'+ this.address +'</div><div class="info_window_address_description">'+ this.location_description +'</div><div class"info_window_hours">'+ this.days_hours+'</div><div class"infow_window_food_items">'+this.food_items+'</div><div class"info_window_schedule"><a href="'+ this.schedule +'">'+ this.schedule +'</a></div>'
+      });
+
+      //Open popup on marker click
+      google.maps.event.addListener(marker, 'click', function() {
+        marker.info.open(map, this);
+      });
+
+    });
+  });
+
 
 %script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?callback=init_map&key=AIzaSyApyyki_-SoM7pPt0ac-RaE-bv98RrpYkY"}
