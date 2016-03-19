@@ -30,4 +30,5 @@ I decided to seed the database by fetching the locations from DataSF which could
 * Could refactor the JS on index a bit
 * Could make categories dynamic (w/ admin page or something)
 * Could render the list of location names in place of categories on click (having to double click makes this a predicament at the moment)
+* Spinner on Autogeolocate would be nice
 
