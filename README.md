@@ -25,7 +25,7 @@ I initially wrote out the action of finding trucks by categories the "Rails way"
 I decided to seed the database by fetching the locations from DataSF which could just be done by hitting the '/populate_trucks' route. This made it easy to debug quickly and allowed me to be able to filter out a lot of unnecesssary data without having to fetch and filter on every category request. If I were to put this on a production environment I'd write a rake task to update the trucks by doing this on a daily basis instead.
 
 ## Improvements
-* For someone reason you have to click twice to get the map to refresh on the right category even though the JSON request was successful and the map content is re-rendered. When I'm not totally dying from my kidney stones I'll figure it out 😱
+* For some reason you have to click twice to get the map to refresh on the right category even though the JSON request was successful and the map content is re-rendered. When I'm not totally dying from my kidney stones I'll figure it out 😱
 * There could definitely be more error checking
 * Could refactor the JS on index a bit
 * Could make categories dynamic (w/ admin page or something)
