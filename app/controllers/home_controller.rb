@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 	include Geokit::Geocoders
-  protect_from_forgery except: :user_location
+  protect_from_forgery except: :user_location # For testing
 
   def index
   	@food_trucks = Truck.all
@@ -9,6 +9,7 @@ class HomeController < ApplicationController
   def populate_food_trucks
   	# Populate db with trucks if none already exist
   	if Truck.count == 0
+      # DataSF:FoodTrucks 
 	  	results = HTTParty.get 'http://data.sfgov.org/resource/rqzj-sfat.json'
 	  	# lazy loading blah
 	  	results.each do |food_truck|
@@ -38,10 +39,12 @@ class HomeController < ApplicationController
 
   def show_category_locations
   	category = params[:category]
+    # Find trucks that carry items of the selected category
   	@category_locations = Truck.where("food_items like ?", "%#{category}%")
   	user_location = [session[:lat], session[:lng]]
   	if user_location.present?
   		@nearest_locations = @category_locations.near(user_location, 20).as_json
+      # If we are in Phoenix or something, just set location to SF and center
   		if @nearest_locations.empty?
   			@nearest_locations = @category_locations.near('San Francisco, CA', 20).as_json
   			@center_sf = true
@@ -53,8 +56,10 @@ class HomeController < ApplicationController
   end
 
   def user_location
+    # Grabbing coords to set and center 
   	@lat = params[:coordinates][:lat]
   	@lng = params[:coordinates][:lon]
+    # Save for later
   	session[:lat] = @lat
   	session[:lng] = @lng
   end
