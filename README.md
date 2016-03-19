@@ -1,5 +1,4 @@
 # SF Food Trucks
-==============
 This app was built for Uber’s [coding challenge](https://github.com/uber/coding-challenge-tools). The app features a map of San Francisco’s Food Trucks, using data from [DataSF:Food Trucks](https://data.sfgov.org/Permitting/Mobile-Food-Facility-Permit/rqzj-sfat). 
 
 ## Demo
@@ -14,10 +13,10 @@ There's a live version at http://sf-food-truck-findr.herokuapp.com/
 * RSpec 
 
 ## Usage
-Users can pick a category from a list of food types and find food trucks in the SF area with that category to display on the map. Clicking on a marker on the map will open up an info window with details on that food truck. Users can autogeolocate by clicking pin icon in top right corner. 
+Users can pick a category from a list of food types and find food trucks in the SF area with that category to display on the map. Clicking a marker on the map will open up an info window with details on that food truck. Users can autogeolocate by clicking pin icon in top right corner. 
 
 ## Assumptions
-I'm assuming the end user is using a modern web browser, preferably Chrome. The user presumably lives in San Francisco as well.
+I'm assuming the end user is using a modern web browser, preferably Chrome. The user presumably lives in San Francisco.
 
 ## Decisions
 I initially wrote out the action of finding trucks by categories the "Rails way" through formal ajax responses on the link_to's, but for whatever reason it wouldn't interpolate/render the array of nearest locations in the js.erb file when deployed to Heroku. I ended up going with a straight up $.ajax call to the route to grab the JSON and then built the map around that instead to get it working. 
