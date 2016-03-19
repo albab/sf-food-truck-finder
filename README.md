@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/albab/sf-food-truck-finder.svg?branch=master)](https://travis-ci.org/albab/sf-food-truck-finder)
 # SF Food Trucks
-This app was built for Uber’s [coding challenge](https://github.com/uber/coding-challenge-tools). The app features a map of San Francisco’s Food Trucks, using data from [DataSF:Food Trucks](https://data.sfgov.org/Permitting/Mobile-Food-Facility-Permit/rqzj-sfat). 
+The app features a map of San Francisco’s Food Trucks, using data from [DataSF:Food Trucks](https://data.sfgov.org/Permitting/Mobile-Food-Facility-Permit/rqzj-sfat). 
 
 ## Demo
 There's a live version at http://sf-food-truck-findr.herokuapp.com/
